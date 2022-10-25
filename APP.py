@@ -1,5 +1,5 @@
 import streamlit as st
-
+import pandas as pd
 
 st.set_page_config(
     page_title="YoungYan",
@@ -12,4 +12,7 @@ st.set_page_config(
         'About': "# This is a header. This is an *extremely* cool app!"
     }
 )
+
+data = pd.read_excel('./CPI_农村.csv')
+st.df(data)
 st.write("my first web")
