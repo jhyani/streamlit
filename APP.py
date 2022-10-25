@@ -13,6 +13,6 @@ st.set_page_config(
     }
 )
 
-data = pd.read_excel('./CPI_农村.csv')
+data = pd.read_csv('./CPI_农村.csv')
 st.df(data)
 st.write("my first web")
