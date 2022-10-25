@@ -14,5 +14,5 @@ st.set_page_config(
 )
 
 data = pd.read_csv('./CPI_农村.csv')
-st.df(data)
+st.dataframe(data)
 st.write("my first web")
