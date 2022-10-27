@@ -16,3 +16,9 @@ st.set_page_config(
 data = pd.read_csv('./CPI_农村.csv')
 st.dataframe(data)
 st.write("my first web")
+
+
+
+# Everything is accessible via the st.secrets dict:
+
+st.write("host:", st.secrets["host"])
