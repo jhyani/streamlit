@@ -21,7 +21,8 @@ st.write("my first web")
 
 # Everything is accessible via the st.secrets dict:
 import mysql.connector
-server = "rm-uf6k846wp4uld2q73po.mysql.rds.aliyuncs.com"
+##server = "rm-uf6k846wp4uld2q73po.mysql.rds.aliyuncs.com"
+server = "rm-uf6k846wp4uld2q73.mysql.rds.aliyuncs.com"
 users = "jhyani"
 pword = "Yjh950125"
 database = "nongji"
