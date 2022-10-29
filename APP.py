@@ -1,9 +1,11 @@
 import streamlit as st
 import pandas as pd
+import json
+import mysql.connector
 
 st.set_page_config(
     page_title="YoungYan",
-    page_icon="🧊",
+    page_icon="🌱",
     layout="wide",
     initial_sidebar_state="expanded",
     menu_items={
@@ -19,32 +21,34 @@ st.write("my first web")
 
 
 
-# Everything is accessible via the st.secrets dict:
-import mysql.connector
-##server = "rm-uf6k846wp4uld2q73po.mysql.rds.aliyuncs.com"
-server = "rm-uf6k846wp4uld2q73.mysql.rds.aliyuncs.com"
-users = "jhyani"
-pword = "Yjh950125"
-database = "nongji"
+# sqlserver information:
+with open('/root/RemoteWorking/.vscode/mysql.json', encoding = 'utf-8') as a:
+    data = json.load(a)
+
 
 # Initialize connection.
 # Uses st.experimental_singleton to only run once.
+
 @st.experimental_singleton
-def init_connection():
-    return mysql.connector.connect(host=server,port=3306,database="nongji",user="jhyani",password="Yjh950125")
+def init_connection():    
+    return mysql.connector.connect(**data['sql_server'])
 
 conn = init_connection()
 
 # Perform query.
 # Uses st.experimental_memo to only rerun when the query changes or after 10 min.
-@st.experimental_memo(ttl=600)
+@st.experimental_memo(ttl=6)
 def run_query(query):
-    with conn.cursor() as cur:
-        cur.execute(query)
-        return cur.fetchall()
+    ##with conn.cursor() as cur:
+    cur = conn.cursor()
+    cur.execute(query)
+    return cur.fetchall()
 
 rows = run_query("SELECT * from test1;")
 
 # Print results.
+data = "%-20s%-20s%-20s%-20s\n"%("TYPE","CAD","DATATYPE","MAPPING")
 for row in rows:
-    st.write(f"{row[0]} has a :{row[1]}:")
+    data += "%-20s%-20s%-20s%-20s\n"%(row[0],row[1],row[2],row[3])
+
+st.code(data)
